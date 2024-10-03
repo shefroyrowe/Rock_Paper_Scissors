@@ -1,3 +1,4 @@
+//get computer guess
 const getComputerChoice = () => {
     let choice = '';
     const getRndom = Math.floor(Math.random() * 3);
@@ -8,6 +9,11 @@ const getComputerChoice = () => {
     } else {
         choice = "scissors";
     }
-
     return choice;
+}
+
+//get player guess
+const getHumanChoice = () => {
+    let playerChoice = prompt("Enter 'Rock, Paper, or Scissors' to play: ",).toLocaleLowerCase();
+    return playerChoice;
 }
