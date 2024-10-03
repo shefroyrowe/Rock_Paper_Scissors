@@ -23,7 +23,31 @@ const getHumanChoice = () => {
 
 //play game function
 const playRound = (humanChoice, computerChoice) => {
-
+    if (humanChoice === computerChoice) {
+        let draw = `Player: ${humanChoice.toUpperCase()} Computer: ${computerChoice.toUpperCase()}. It's a draw!`;
+        console.log(draw);
+        return;
+    } else if (humanChoice === "rock" &&
+         computerChoice === "paper" ||
+         humanChoice === "scissors" &&
+         computerChoice === "rock" ||
+         humanChoice === "paper" &&
+         computerChoice === "scissors") {
+            let computerWin = `Player: ${humanChoice.toUpperCase()} Computer: ${computerChoice.toUpperCase()}. Compter wins!`;
+            computerScore += 1;
+            console.log(computerWin);
+            return;
+    } else if (computerChoice === "rock" &&
+        humanChoice === "paper" ||
+        computerChoice === "scissors" &&
+        humanChoice === "rock" ||
+        computerChoice === "paper" &&
+        humanChoice === "scissors") {
+           let playerWin = `Player: ${humanChoice.toUpperCase()} Computer: ${computerChoice.toUpperCase()}. Player wins!`;
+           playerScore += 1;
+           console.log(playerWin);
+           return;
+   }
 }
 
 const humanSelection = getHumanChoice();
