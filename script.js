@@ -1,3 +1,6 @@
+let playerScore = 0;
+let computerScore = 0;
+
 //get computer guess
 const getComputerChoice = () => {
     let choice = '';
@@ -17,3 +20,13 @@ const getHumanChoice = () => {
     let playerChoice = prompt("Enter 'Rock, Paper, or Scissors' to play: ",).toLocaleLowerCase();
     return playerChoice;
 }
+
+//play game function
+const playRound = (humanChoice, computerChoice) => {
+
+}
+
+const humanSelection = getHumanChoice();
+const computerSelection = getComputerChoice();
+
+playRound(humanSelection, computerSelection);
