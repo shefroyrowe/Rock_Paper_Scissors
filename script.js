@@ -59,17 +59,6 @@ const computerSelection = () => {
         }
     }//end playRound function
 
-    //call playRound in loop to 5 rounds
-    do {
-        //prompt user while rounds not = 5 (get player guess)
-        const humanSelection = prompt("Enter 'Rock, Paper, or Scissors' to play: ",).toLocaleLowerCase();
-        //call playRound here
-        playRound(humanSelection, computerSelection());
-        //increment rounds by 1
-        rounds++;
-    } while (rounds < 5);//end do while loop
-
-
     //final win logic
     if (rounds === 5 && playerScore > computerScore) {
         console.log("playerScore: " + playerScore, " Player wins! Flawless Victory!");
