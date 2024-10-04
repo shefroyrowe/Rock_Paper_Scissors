@@ -1,12 +1,8 @@
 //global variables
+const userChoiceButtons = document.querySelectorAll('button');
 let rounds = 0;
 
-//play game logic
-const playGame = () => {
-    let playerScore = 0;
-    let computerScore = 0;
-
-    //get computer guess
+//get computer guess
 const computerSelection = () => {
     let choice = '';
     const getRndom = Math.floor(Math.random() * 3);
@@ -19,6 +15,11 @@ const computerSelection = () => {
     }
     return choice;
 }//end get computer guess
+
+//play game logic
+const playGame = () => {
+    let playerScore = 0;
+    let computerScore = 0;
 
     //play one round logic
     const playRound = (humanChoice, computerChoice) => {
@@ -58,6 +59,22 @@ const computerSelection = () => {
             return;
         }
     }//end playRound function
+
+    userChoiceButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            switch(button.id) {
+                case "rock":
+                    playRound("rock", computerSelection());
+                    break;
+                case "paper":
+                    playRound("paper", computerSelection());
+                    break;
+                case "scissors":
+                    playRound("scissors", computerSelection());
+                    break;
+            }
+        });
+    });
 
     //final win logic
     if (rounds === 5 && playerScore > computerScore) {
