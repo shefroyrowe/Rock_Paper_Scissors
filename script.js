@@ -1,5 +1,3 @@
-
-
 //global variables
 const userSelectionButtons = document.querySelectorAll('button');
 const displayResults = document.getElementById('results');
@@ -7,6 +5,7 @@ let playerScore = 0;
 let computerScore = 0;
 let round = 0;
 
+//function to disable user options buttons after all rounds end
 const disableUserSelectionButtons = () => {
     userSelectionButtons.forEach((button) => {
         button.id === "reset" ? button.disabled = false : button.disabled = true;
@@ -27,7 +26,7 @@ const computerSelection = () => {
     return choice;
 }//end get computer guess
 
-//final win logic
+//final win message logic
 const winnerMsg = () => {
     if (round === 5 && playerScore > computerScore) {
         displayResults.textContent = "player: " + playerScore + " Player wins! Flawless Victory!";

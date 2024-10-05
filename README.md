@@ -1,6 +1,6 @@
 # Rock_Paper_Scissors
-This game of rock paper scissor is played in the browser console for now.
-To play: Open browser console, copy all the javaScrpt code and paste it into the console.
-Press enter to run and enjoy!
+This game of rock paper scissors is now version 2.0 and fully playable!
+Visit the live game through the link to the top right under "About" 
+Enjoy!
 
 -vision via Odin Project.
