@@ -1,6 +1,17 @@
+
+
 //global variables
-const userChoiceButtons = document.querySelectorAll('button');
-let rounds = 0;
+const userSelectionButtons = document.querySelectorAll('button');
+const displayResults = document.getElementById('results');
+let playerScore = 0;
+let computerScore = 0;
+let round = 0;
+
+const disableUserSelectionButtons = () => {
+    userSelectionButtons.forEach((button) => {
+        button.id === "reset" ? button.disabled = false : button.disabled = true;
+    });
+}
 
 //get computer guess
 const computerSelection = () => {
@@ -16,53 +27,77 @@ const computerSelection = () => {
     return choice;
 }//end get computer guess
 
-//play game logic
+//final win logic
+const winnerMsg = () => {
+    if (round === 5 && playerScore > computerScore) {
+        displayResults.textContent = "player: " + playerScore + " Player wins! Flawless Victory!";
+        disableUserSelectionButtons();
+        return;
+    } else if (round === 5 && computerScore > playerScore) {
+        displayResults.textContent = "computer: " + computerScore + " Computer wins! Flawless Victory!";
+        disableUserSelectionButtons();
+        return;
+    }
+};
+
+//play round logic
+const playRound = (humanChoice, computerChoice) => {
+
+    //round draw logic
+    if (humanChoice === computerChoice) {
+        round++;
+        displayResults.textContent = `Player: ${humanChoice.toUpperCase()} Computer: ${computerChoice.toUpperCase()}. It's a draw!
+             Player: ${playerScore}
+             Computer: ${computerScore}
+             rounds: ${round}
+             `;
+        winnerMsg();
+
+        //computer wins round logic
+    } else if (humanChoice === "rock" &&
+        computerChoice === "paper" ||
+        humanChoice === "scissors" &&
+        computerChoice === "rock" ||
+        humanChoice === "paper" &&
+        computerChoice === "scissors") {
+        computerScore++;
+        round++;
+        displayResults.textContent = `
+            Player: ${humanChoice.toUpperCase()} Computer: ${computerChoice.toUpperCase()}. Computer wins!
+             Player: ${playerScore}
+             Computer: ${computerScore}
+             rounds: ${round}
+            `;
+        winnerMsg();
+
+        //player wins round logic
+    } else if (computerChoice === "rock" &&
+        humanChoice === "paper" ||
+        computerChoice === "scissors" &&
+        humanChoice === "rock" ||
+        computerChoice === "paper" &&
+        humanChoice === "scissors") {
+        playerScore++;
+        round++;
+        displayResults.textContent = `
+            Player: ${humanChoice.toUpperCase()} Computer: ${computerChoice.toUpperCase()}. Player wins!
+             Player: ${playerScore}
+             Computer: ${computerScore}
+             rounds: ${round}
+             `;
+        winnerMsg();
+    }
+
+}//end playRound function
+
+
+//play game function and logic
 const playGame = () => {
-    let playerScore = 0;
-    let computerScore = 0;
 
-    //play one round logic
-    const playRound = (humanChoice, computerChoice) => {
-
-        if (humanChoice === computerChoice) {
-            let draw = `Player: ${humanChoice.toUpperCase()} Computer: ${computerChoice.toUpperCase()}. It's a draw!`;
-            console.log(draw);
-
-            console.log("Player: ", playerScore);
-            console.log("Pomputer: ", computerScore);
-            return;
-        } else if (humanChoice === "rock" &&
-            computerChoice === "paper" ||
-            humanChoice === "scissors" &&
-            computerChoice === "rock" ||
-            humanChoice === "paper" &&
-            computerChoice === "scissors") {
-            let computerWin = `Player: ${humanChoice.toUpperCase()} Computer: ${computerChoice.toUpperCase()}. Computer wins!`;
-            computerScore += 1;
-            console.log(computerWin);
-
-            console.log("Player: ", playerScore);
-            console.log("Computer: ", computerScore);
-            return;
-        } else if (computerChoice === "rock" &&
-            humanChoice === "paper" ||
-            computerChoice === "scissors" &&
-            humanChoice === "rock" ||
-            computerChoice === "paper" &&
-            humanChoice === "scissors") {
-            let playerWin = `Player: ${humanChoice.toUpperCase()} Computer: ${computerChoice.toUpperCase()}. Player wins!`;
-            playerScore += 1;
-            console.log(playerWin);
-
-            console.log("Player: ", playerScore);
-            console.log("Computer: ", computerScore);
-            return;
-        }
-    }//end playRound function
-
-    userChoiceButtons.forEach((button) => {
+    //mount event listener unto player selection buttons
+    userSelectionButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            switch(button.id) {
+            switch (button.id) {
                 case "rock":
                     playRound("rock", computerSelection());
                     break;
@@ -72,16 +107,14 @@ const playGame = () => {
                 case "scissors":
                     playRound("scissors", computerSelection());
                     break;
+                case "reset":
+                    playerScore = 0;
+                    computerScore = 0;
+                    round = 0;
+                    window.location.reload();
             }
         });
-    });
-
-    //final win logic
-    if (rounds === 5 && playerScore > computerScore) {
-        console.log("playerScore: " + playerScore, " Player wins! Flawless Victory!");
-    } else if (rounds === 5 && computerScore > playerScore) {
-        console.log("computerScore: " + computerScore, " Computer wins! Flawless Victory!");
-    }
+    });// end for each loop
 
 }//end playGame function
 
